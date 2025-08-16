@@ -24,7 +24,7 @@ export function validateRegister(
     if (error instanceof z.ZodError) {
       res.status(400).json({
         error: 'Validation Error',
-        details: error.errors.map((err) => ({
+        details: error.issues.map((err) => ({
           field: err.path.join('.'),
           message: err.message,
         })),
@@ -47,7 +47,7 @@ export function validateLogin(
     if (error instanceof z.ZodError) {
       res.status(400).json({
         error: 'Validation Error',
-        details: error.errors.map((err) => ({
+        details: error.issues.map((err) => ({
           field: err.path.join('.'),
           message: err.message,
         })),

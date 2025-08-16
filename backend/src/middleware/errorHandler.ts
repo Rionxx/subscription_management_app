@@ -16,14 +16,19 @@ export function errorHandler(
 
   // Zod validation errors
   if (error instanceof ZodError) {
+    const zodError = error as ZodError<any>;
     statusCode = 400;
     message = 'Validation Error';
     res.status(statusCode).json({
       error: message,
-      details: error.errors.map((err) => ({
+      details: zodError.issues.map((err) => ({
         field: err.path.join('.'),
         message: err.message,
       })),
+      // details: zodError.errors.map((err) => ({
+      //   field: err.path.join('.'),
+      //   message: err.message,
+      // })),
     });
     return;
   }
